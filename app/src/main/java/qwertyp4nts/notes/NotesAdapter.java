@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
@@ -28,16 +32,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             super(v);
             containerView = v.findViewById(R.id.note_row);
             textView = v.findViewById(R.id.note_row_text);
-            MaterialButton deleteButton = v.findViewById(R.id.delete_row);
+            ImageButton deleteButton = v.findViewById(R.id.delete_row);
 
-            containerView.setOnClickListener(new View.OnClickListener() {
+            textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Context context = view.getContext();
                     Note current = (Note) containerView.getTag();
                     Intent intent = new Intent(view.getContext(), NoteActivity.class);
                     intent.putExtra("id", current.id);
-                    intent.putExtra("contents", current.contents);
+                    String notePreview = current.contents;
+                /*    if (notePreview.length() > 31) {
+                        notePreview = notePreview.substring(0, 30);
+                    }*/
+                    intent.putExtra("contents", notePreview);
 
                     view.getContext().startActivity(intent);
                 }
@@ -50,6 +58,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
                     Note current = (Note) containerView.getTag();
                     database.noteDao().delete(current.id);
                     // MainActivity.adapter.reload();
+                    Intent intent = new Intent(view.getContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    Context context = view.getContext();
+                    context.startActivity(intent);
                 }
             });
         }

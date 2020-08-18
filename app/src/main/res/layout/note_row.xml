@@ -3,23 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/note_row"
+    android:layout_height="wrap_content"
+    android:id="@+id/note_row_parent"
     android:clickable="true"
     android:focusable="true"
     android:padding="10dp"
     android:foreground="?android:attr/selectableItemBackground">
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_delete"
-        android:id="@+id/delete_row"
-        android:textAppearance="@color/cardview_dark_background"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/note_row_text" />
 
+    <LinearLayout
+        android:id="@+id/note_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/note_row_text"
+                android:layout_width="0dp"
+                android:layout_weight="0.80"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageButton
+                android:id="@+id/delete_row"
+                android:layout_width="0dp"
+                android:layout_weight="0.20"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_delete"
+                />
+
+
+    </LinearLayout>
 
 </LinearLayout>
